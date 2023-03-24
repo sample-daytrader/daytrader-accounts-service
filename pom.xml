@@ -285,7 +285,7 @@
                  <daytraderTruststoreLocation>${daytraderKeystoreFolder}/truststore.jks</daytraderTruststoreLocation>
                  <daytraderTruststorePassword>password</daytraderTruststorePassword>
                  <!-- Port -->
-                 <serverPort>8080</serverPort>
+                 <serverPort>1443</serverPort>
                  <databaseDriver>org.apache.derby.jdbc.EmbeddedDriver</databaseDriver>
                  <databaseUrl>jdbc:derby:tradesdb;create=true</databaseUrl>
 
@@ -372,7 +372,6 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
                         <executions>
-                        
                             <!-- pre-integration-test: start the application -->
                             <execution>
                                 <id>statup-application</id>
@@ -457,35 +456,15 @@
                                     </build>
                                     <run>
                                         <ports>
-                                            <port>1443:8080</port>
+                                            <port>1443:1443</port>
                                         </ports>
                                         <wait>
                                             <log>Started AccountsApplication</log>
                                         </wait>
                                     </run>
-
                                 </image>
                             </images>
                         </configuration>
-                        <executions>
-                            <execution>
-                                <id>default</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>build</goal>
-                                    <goal>push</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>deploy</id>
-                                <phase>deploy</phase>
-                                <goals>
-                                    <goal>build</goal>
-                                    <goal>push</goal>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
   				</plugins>
   			</build>
