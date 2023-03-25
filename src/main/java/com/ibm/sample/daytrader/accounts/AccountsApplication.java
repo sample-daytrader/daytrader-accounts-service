@@ -20,7 +20,6 @@ package com.ibm.sample.daytrader.accounts;
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
-import jdk.internal.org.jline.utils.Log;
 import org.apache.catalina.Context;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.util.descriptor.web.ContextResource;
