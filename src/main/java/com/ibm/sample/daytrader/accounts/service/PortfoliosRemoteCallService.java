@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 // Daytrader
 
 // Spring Framework
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 
@@ -55,7 +56,8 @@ public class PortfoliosRemoteCallService extends BaseRemoteCallService
 	}
 
 //  - Naming convention based service discovery 
-	  private static String portfoliosServiceRoute = System.getenv("DAYTRADER_PORTFOLIOS_SERVICE");	
+	@Value("${daytrader.services.portfolios}")
+	private static String portfoliosServiceRoute;
 		
    /**
 	*

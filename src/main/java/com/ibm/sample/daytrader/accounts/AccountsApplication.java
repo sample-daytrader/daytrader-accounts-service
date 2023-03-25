@@ -17,29 +17,52 @@
 
 package com.ibm.sample.daytrader.accounts;
 
+import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
+import jdk.internal.org.jline.utils.Log;
 import org.apache.catalina.Context;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.util.descriptor.web.ContextResource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.embedded.tomcat.TomcatWebServer;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 
 @ServletComponentScan(basePackages={"com.ibm.sample.daytrader.accounts"})
 @SpringBootApplication
 public class AccountsApplication extends SpringBootServletInitializer {
-	
-//  Configure database environment 
-    private static String driverClassName = System.getenv("DAYTRADER_DATABASE_DRIVER");
-    private static String url = System.getenv("DAYTRADER_DATABASE_URL");
-    private static String username = System.getenv("DAYTRADER_DATABASE_USERNAME");
-    private static String password = System.getenv("DAYTRADER_DATABASE_PASSWORD");
+
+//  Configure database environment
+	private static String driverClassName;
+	private static String url;
+	private static String username;
+	private static String password;
+	@Value("${database.driver}")
+	public void setDriverClassName(String dbDriver) {
+		driverClassName = dbDriver;
+	}
+	@Value("${database.url}")
+	public void setUrl(String dbUrl) {
+		url = dbUrl;
+	}
+	@Value("${database.username}")
+	public void setUsername(String dbUname) {
+		username = dbUname;
+	}
+	@Value("${database.password}")
+	public void setPassword(String pass) {
+		password = pass;
+	}
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
@@ -48,6 +71,7 @@ public class AccountsApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) throws Exception 
 	{	
+		System.out.println(driverClassName);
 		SpringApplication.run(AccountsApplication.class, args);
 	}
 
